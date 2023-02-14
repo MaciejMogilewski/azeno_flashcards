@@ -19,7 +19,7 @@ function Deck({deck: {id, difficulty, tags, name, description, author, rating} =
                         </Card.Text>
                         <Card.Text>
                             {tags.map((tag) => (
-                                <Badge bg="primary" className="me-1">
+                                <Badge key={tag} bg="primary" className="me-1">
                                     {tag}
                                 </Badge>
                             ))}

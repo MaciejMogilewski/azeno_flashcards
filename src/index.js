@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Learning from "./components/Learning/Learning";
+import Decks from "./components/Decks/Decks";
+import Layout from "./components/Layout/Layout";
+import FinishLearning from "./components/FinishLearning/FinishLearning";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
+        element: <Layout />,
+        children: [
+            {
+                path: '',
+                element: <Decks />
+            },
+            {
+                path: 'end',
+                element: <FinishLearning />
+            }
+        ]
     },
     {
         path: "/decks/:id/",
