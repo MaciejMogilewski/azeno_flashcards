@@ -6,33 +6,62 @@ import Learning from "./components/Learning/Learning";
 import Decks from "./components/Decks/Decks";
 import Layout from "./components/Layout/Layout";
 import FinishLearning from "./components/FinishLearning/FinishLearning";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
+import {AuthProvider} from "./context/AuthProvider";
+import FlashCards from "./components/FlashCards/FlashCards";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Layout />,
+        element: <Layout/>,
         children: [
             {
-                path: '',
-                element: <Decks />
+                path: "",
+                element: <RequireAuth/>,
+                children: [
+                    {
+                        path: '',
+                        element: <Decks/>
+                    },
+                    {
+                        path: 'end',
+                        element: <FinishLearning/>
+                    },
+                    {
+                        path: 'flashcards',
+                        element: <FlashCards/>
+                    },
+                    {
+                        path: 'require',
+                        element: <RequireAuth/>
+                    }
+                ]
             },
             {
-                path: 'end',
-                element: <FinishLearning />
-            }
+                path: 'register',
+                element: <Register/>
+            },
+            {
+                path: 'login',
+                element: <Login/>
+            },
         ]
     },
     {
         path: "/decks/:id/",
-        element: <Learning />
+        element: <Learning/>
     }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <AuthProvider>
+            <RouterProvider router={router}/>
+        </AuthProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
